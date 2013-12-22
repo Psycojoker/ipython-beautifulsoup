@@ -6,15 +6,15 @@ from BeautifulSoup import BeautifulSoup, Tag
 
 
 def render(self):
-    return "<style>" + HtmlFormatter().get_style_defs('.highlight') + "</style>" + str(self) + "<hr/>" + highlight(self.prettify(), HtmlLexer(), HtmlFormatter()).encode("Utf-8")
+    return str(self) + "<hr/>" + highlight(self.prettify(), HtmlLexer(), HtmlFormatter(noclasses=True)).encode("Utf-8")
 
 
 class BeautifulSoupList(UserList):
     def _repr_html_(self):
-        to_return = "<style>" + HtmlFormatter().get_style_defs('.highlight') + "</style>"
-        to_return += "<table>"
+        to_return = "<table>"
+        to_return += "<tr><th>Index</th><th>Render</th><th>source</th></tr>"
         for num, item in enumerate(self):
-            to_return += "<tr><td>" + str(num) + "</td><td>" + str(item) + "</td><td>" + highlight(item.prettify(), HtmlLexer(), HtmlFormatter()).encode("Utf-8") + "</td></tr>"
+            to_return += "<tr><td>" + str(num) + "</td><td>" + str(item) + "</td><td>" + highlight(item.prettify(), HtmlLexer(), HtmlFormatter(noclasses=True)).encode("Utf-8") + "</td></tr>"
 
         return to_return + "</table>"
 
