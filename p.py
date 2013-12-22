@@ -6,7 +6,10 @@ from BeautifulSoup import BeautifulSoup, Tag
 
 
 def render(self):
-    return str(self) + "<hr/>" + highlight(self.prettify(), HtmlLexer(), HtmlFormatter(noclasses=True)).encode("Utf-8")
+    to_return = str(self)
+    to_return += "<hr/>"
+    to_return += highlight(self.prettify(), HtmlLexer(), HtmlFormatter(noclasses=True)).encode("Utf-8")
+    return to_return
 
 
 class BeautifulSoupList(UserList):
@@ -14,7 +17,11 @@ class BeautifulSoupList(UserList):
         to_return = "<table>"
         to_return += "<tr><th>Index</th><th>Render</th><th>source</th></tr>"
         for num, item in enumerate(self):
-            to_return += "<tr><td>" + str(num) + "</td><td>" + str(item) + "</td><td>" + highlight(item.prettify(), HtmlLexer(), HtmlFormatter(noclasses=True)).encode("Utf-8") + "</td></tr>"
+            to_return += "<tr>"
+            to_return += "<td>" + str(num) + "</td>"
+            to_return += "<td>" + str(item) + "</td>"
+            to_return += "<td>" + highlight(item.prettify(), HtmlLexer(), HtmlFormatter(noclasses=True)).encode("Utf-8") + "</td></tr>"
+            to_return += "</tr>"
 
         return to_return + "</table>"
 
