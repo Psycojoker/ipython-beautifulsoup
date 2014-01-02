@@ -35,8 +35,10 @@ def wrap_findAll(function):
     return findAll_wrapper
 
 
-BeautifulSoup._repr_html_ = render
-BeautifulSoup.findAll = wrap_findAll(BeautifulSoup.findAll)
+def load_ipython_extension(ipython):
+    BeautifulSoup._repr_html_ = render
+    BeautifulSoup.findAll = wrap_findAll(BeautifulSoup.findAll)
 
-Tag._repr_html_ = render
-Tag.findAll = wrap_findAll(Tag.findAll)
+    Tag._repr_html_ = render
+    Tag.findAll = wrap_findAll(Tag.findAll)
+    ipython.push(["BeautifulSoup"])
