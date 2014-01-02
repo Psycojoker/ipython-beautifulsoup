@@ -25,6 +25,10 @@ class BeautifulSoupList(UserList):
 
         return to_return + "</table>"
 
+    def __getslice__(self, *args, **kwargs):
+        return BeautifulSoupList(super(BeautifulSoupList, self).__getslice__(*args, **kwargs))
+
+
 def wrap_findAll(function):
     def findAll_wrapper(*args, **kwargs):
         return BeautifulSoupList(function(*args, **kwargs))
