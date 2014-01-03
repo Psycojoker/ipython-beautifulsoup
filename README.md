@@ -19,12 +19,12 @@ This will push a series of callable into your current context, including
 BeautifulSoup. You can now use BeautifulSoup like you would do if it was
 imported from the corresponding module.
 
-This also load a shortcut for the lazy people called *p* (for **p**arse) which is defined this
-way:
+This also load a shortcut for the lazy people called *p* (for **p**arse) which
+is defined this way:
 
 ```python
 def p(url):
-    return BeautifulSoup(urlopen(url).read()
+    return BeautifulSoup(urlopen(url).read())
 ```
 
 Screenshots
