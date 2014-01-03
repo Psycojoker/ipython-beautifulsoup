@@ -8,6 +8,26 @@ A BeautifulSoup object will now display a rendered version of the selected html
 and and prettyfy and syntaxe highlighted version of the selected html using
 pygments.
 
+Install
+=======
+
+Simply run:
+
+    pip install "ipython-beautifulSoup[bs4]"
+
+If you want BeautifulSoup 3 instead of BeautifulSoup 4, change "bs4" by "bs3". If you want the notebook or the qtconsole to be installed, just add "notebook" or "qtconsole" after "bs4" separated by a "," like this:
+
+    pip install "ipython-beautifulSoup[bs4,notebook,qtconsole]"
+
+On Ubuntu LTS, if you want to install the **notebook**, you'll need to do this before:
+
+    sudo apt-get install python-dev g++
+
+For the **qtconsole** do this (if you do this in a virtualenv) (WARNING: it's slow):
+
+    sudo apt-get install make cmake qt4-qmake libqt4-dev
+    pip install pyside
+
 Usage
 =====
 
