@@ -81,5 +81,5 @@ def load_ipython_extension(ipython):
 
 if __name__ == '__main__':
     BeautifulSoup._repr_html_ = render
-    soup = BeautifulSoup(urlopen("http://cerkinfo.be").read())
+    soup = BeautifulSoup(open("test.html").read())
     soup._repr_html_()
