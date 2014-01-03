@@ -3,7 +3,13 @@ from UserList import UserList
 from pygments import highlight
 from pygments.lexers import HtmlLexer
 from pygments.formatters import HtmlFormatter
-from BeautifulSoup import BeautifulSoup, Tag
+
+try:
+    from bs4 import BeautifulSoup, Tag
+    bs4 = True
+except ImportError:
+    from BeautifulSoup import BeautifulSoup, Tag
+    bs4 = False
 
 
 def cleaned_beautifulsoup_copy(soup):
@@ -56,7 +62,7 @@ def load_ipython_extension(ipython):
     Tag.findAll = wrap_findAll(Tag.findAll)
 
     to_push = ["BeautifulSoup", "urlopen", "p"]
-    print "Push 'BeautifulSoup' of 'BeautifulSoup' into current context"
+    print "Push 'BeautifulSoup' of '%s' into current context" % ("bs4" if bs4 else "BeautifulSoup")
     print "Push 'urlopen' of 'urllib2' into current context"
     print "Push 'p' shortcut into current context"
     try:
