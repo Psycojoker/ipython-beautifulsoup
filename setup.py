@@ -12,7 +12,7 @@ setup(name='ipython-beautifulsoup',
       url='https://github.com/Psycojoker/ipython-beautifulsoup',
       install_requires=['pygments', 'ipython'],
       extras_require={
-        "notebook": ["ipython[notebook]"],
+        "notebook": ["ipython[notebook]", "pyzmq"],
         "qtconsole": ["ipython[qtconsole]"],
         "bs3": ["BeautifulSoup"],
         "bs4": ["BeautifulSoup4"],
