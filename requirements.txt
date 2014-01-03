@@ -1,0 +1,3 @@
+ipython[notebook]
+pygments
+beautifulsoup
