@@ -6,8 +6,14 @@ from pygments.formatters import HtmlFormatter
 from BeautifulSoup import BeautifulSoup, Tag
 
 
+def cleaned_beautifulsoup_copy(soup):
+    copy = BeautifulSoup(str(soup))
+    for node in copy('script'):
+        node.extract()
+    return copy
+
 def render(self):
-    to_return = str(self)
+    to_return = str(cleaned_beautifulsoup_copy(self))
     to_return += "<hr/>"
     to_return += highlight(self.prettify(), HtmlLexer(), HtmlFormatter(noclasses=True)).encode("Utf-8")
     return to_return
@@ -20,7 +26,7 @@ class BeautifulSoupList(UserList):
         for num, item in enumerate(self):
             to_return += "<tr>"
             to_return += "<td>" + str(num) + "</td>"
-            to_return += "<td>" + str(item) + "</td>"
+            to_return += "<td>" + str(cleaned_beautifulsoup_copy(item)) + "</td>"
             to_return += "<td>" + highlight(item.prettify(), HtmlLexer(), HtmlFormatter(noclasses=True)).encode("Utf-8") + "</td></tr>"
             to_return += "</tr>"
 
