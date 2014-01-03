@@ -1,0 +1,8 @@
+language: python
+install:
+  - pip install -r requirements.txt
+python:
+    - "2.7"
+script:
+  - python soup.py
+  - python setup.py install
