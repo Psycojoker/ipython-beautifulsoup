@@ -43,6 +43,10 @@ def wrap_findAll(function):
     return findAll_wrapper
 
 
+def p(url):
+    return BeautifulSoup(urlopen(url).read())
+
+
 def load_ipython_extension(ipython):
     print "Monkey patch BeautifulSoup with custom rendering"
     BeautifulSoup._repr_html_ = render
@@ -52,7 +56,8 @@ def load_ipython_extension(ipython):
     Tag.findAll = wrap_findAll(Tag.findAll)
     print "Push 'BeautifulSoup' of 'BeautifulSoup' into current context"
     print "Push 'urlopen' of 'urllib2' into current context"
-    ipython.push(["BeautifulSoup", "urlopen"])
+    print "Push 'p' shortcut into current context"
+    ipython.push(["BeautifulSoup", "urlopen", "p"])
 
 
 if __name__ == '__main__':
