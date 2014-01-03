@@ -12,6 +12,7 @@ def cleaned_beautifulsoup_copy(soup):
         node.extract()
     return copy
 
+
 def render(self):
     to_return = str(cleaned_beautifulsoup_copy(self))
     to_return += "<hr/>"
