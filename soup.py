@@ -56,10 +56,15 @@ def p(url):
 def load_ipython_extension(ipython):
     print "Monkey patch BeautifulSoup with custom rendering"
     BeautifulSoup._repr_html_ = render
-    BeautifulSoup.findAll = wrap_findAll(BeautifulSoup.findAll)
-
     Tag._repr_html_ = render
-    Tag.findAll = wrap_findAll(Tag.findAll)
+
+    if bs4:
+        BeautifulSoup.find_all = wrap_findAll(BeautifulSoup.find_all)
+        Tag.find_all = wrap_findAll(Tag.find_all)
+    else:
+        BeautifulSoup.findAll = wrap_findAll(BeautifulSoup.findAll)
+        Tag.findAll = wrap_findAll(Tag.findAll)
+
 
     to_push = ["BeautifulSoup", "urlopen", "p"]
     print "Push 'BeautifulSoup' of '%s' into current context" % ("bs4" if bs4 else "BeautifulSoup")
