@@ -54,10 +54,18 @@ def load_ipython_extension(ipython):
 
     Tag._repr_html_ = render
     Tag.findAll = wrap_findAll(Tag.findAll)
+
+    to_push = ["BeautifulSoup", "urlopen", "p"]
     print "Push 'BeautifulSoup' of 'BeautifulSoup' into current context"
     print "Push 'urlopen' of 'urllib2' into current context"
     print "Push 'p' shortcut into current context"
-    ipython.push(["BeautifulSoup", "urlopen", "p"])
+    try:
+        import requests
+        print "Push 'request' into current context"
+        to_push.append('requests')
+    except ImportError:
+        pass
+    ipython.push(to_push)
 
 
 if __name__ == '__main__':
