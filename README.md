@@ -15,6 +15,10 @@ In IPython notebook or qtconsole, do:
 
     %load_ext soup
 
+This will push a series of callable into your current context, including
+BeautifulSoup. You can now use BeautifulSoup like you would do if it was
+imported from the corresponding module.
+
 Screenshots
 ===========
 
