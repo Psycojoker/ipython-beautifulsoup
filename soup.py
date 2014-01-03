@@ -52,3 +52,9 @@ def load_ipython_extension(ipython):
     print "Push 'BeautifulSoup' of 'BeautifulSoup' into current context"
     print "Push 'urlopen' of 'urllib2' into current context"
     ipython.push(["BeautifulSoup", "urlopen"])
+
+
+if __name__ == '__main__':
+    BeautifulSoup._repr_html_ = render
+    soup = BeautifulSoup(urlopen("http://cerkinfo.be").read())
+    soup._repr_html_()
