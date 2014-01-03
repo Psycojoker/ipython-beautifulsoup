@@ -1,3 +1,4 @@
+from urllib2 import urlopen
 from UserList import UserList
 from pygments import highlight
 from pygments.lexers import HtmlLexer
@@ -42,7 +43,6 @@ def load_ipython_extension(ipython):
 
     Tag._repr_html_ = render
     Tag.findAll = wrap_findAll(Tag.findAll)
-    from urllib2 import urlopen
     print "Push 'BeautifulSoup' of 'BeautifulSoup' into current context"
     print "Push 'urlopen' of 'urllib2' into current context"
     ipython.push(["BeautifulSoup", "urlopen"])
