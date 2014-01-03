@@ -41,4 +41,5 @@ def load_ipython_extension(ipython):
 
     Tag._repr_html_ = render
     Tag.findAll = wrap_findAll(Tag.findAll)
-    ipython.push(["BeautifulSoup"])
+    from urllib2 import urlopen
+    ipython.push(["BeautifulSoup", "urlopen"])
