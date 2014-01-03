@@ -4,7 +4,7 @@
 from setuptools import setup
 
 setup(name='ipython-beautifulsoup',
-      version='0.1',
+      version='0.1.1',
       description='custom rendering of beautifulsoup object in ipython notebook and qtconsole',
       author='Laurent Peuch',
       #long_description='',
