@@ -1,12 +1,11 @@
 IPython-BeautifulSoup
 =====================
 
-IPython-BeautifulSoup is an IPython extension that provide a custom rendering of
-BeautifulSoup objects in iPython notebook and qtconsole.
+IPython-BeautifulSoup is an IPython extension for displaying
+BeautifulSoup HTML/XML objects as prettified and syntax highlighted
+HTML blocks in IPython notebook and qtconsole.
 
-A BeautifulSoup object will now display a rendered version of the selected html
-and a prettify and syntax highlighted version of the selected html using
-pygments.
+Syntax highlighting is accomplished with Pygments.
 
 ![teaser](teaser.png)
 
@@ -17,11 +16,17 @@ Simply run:
 
     pip install "ipython-beautifulSoup[bs4]"
 
-If you want BeautifulSoup 3 instead of BeautifulSoup 4, change "bs4" by "bs3". If you want the notebook or the qtconsole to be installed, just add "notebook" or "qtconsole" after "bs4" separated by a "," like this:
+For BeautifulSoup 3 instead of BeautifulSoup 4, change ``bs4`` to ``bs3``.
+
+IPython Notebook
+-----------------
+To install IPython notebook or qtconsole as well,
+append  ``notebook`` and/or ``qtconsole`` to the extras specifier
+after "bs4" separated by a ",", like this:
 
     pip install "ipython-beautifulSoup[bs4,notebook,qtconsole]"
 
-On Ubuntu LTS, if you want to install the **notebook**, you'll need to do this before:
+On Ubuntu LTS, if you want to install **IPython notebook**, you'll need to do this before:
 
     sudo apt-get install python-dev g++
 
@@ -30,6 +35,8 @@ For the **qtconsole** do this (if you do this in a virtualenv) (WARNING: it's sl
     sudo apt-get install make cmake qt4-qmake libqt4-dev
     pip install pyside
 
+See http://ipython.org/ipython-doc/stable/install/index.html
+
 Usage
 =====
 
@@ -37,16 +44,20 @@ In IPython notebook or qtconsole, do:
 
     %load_ext soup
 
-This will push a series of callable into your current context, including
-BeautifulSoup. You can now use BeautifulSoup like you would do if it was
+This will push a series of callables into your current context as well as
+a monkey-patched BeautifulSoup and requests.
+
+You can now use BeautifulSoup like you would if it was
 imported from the corresponding module.
 
-This also load a shortcut for the lazy people called *p* (for **p**arse) which
-is defined this way:
+This also loads a shortcut function called ``p`` (for
+**p** arse) defined as follows:
 
 ```python
-def p(url):
-    return BeautifulSoup(urlopen(url).read())
+    def p(url):
+        if requests is not None:
+            return BeautifulSoup(requests.get(url).contents)
+        return BeautifulSoup(urlopen(url).read())
 ```
 
 Screenshots
