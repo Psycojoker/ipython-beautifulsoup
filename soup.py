@@ -58,7 +58,7 @@ def cleaned_beautifulsoup_copy(soup):
             node.extract()
 
     if SHOW_RENDERED_CSS is not True:
-        for node in copy('style'):
+        for node in copy('style') + copy('link'):
             node.extract()
 
     return copy
