@@ -4,5 +4,5 @@ install:
 python:
     - "2.7"
 script:
-  - python soup.py
+  - python test.py
   - python setup.py install
