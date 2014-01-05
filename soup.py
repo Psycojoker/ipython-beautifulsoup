@@ -167,6 +167,7 @@ class TestIPythonBeautifulSoup(unittest.TestCase):
         soup = BeautifulSoup(contents)
         output = soup._repr_html_()
         self.assertTrue(output)
+        self.assertTrue(isinstance(output, unicode))
 
     def test_monkey_patch_beautiful_soup(self):
         BeautifulSoup_, Tag_ = monkey_patch_beautiful_soup()
@@ -180,12 +181,14 @@ class TestIPythonBeautifulSoup(unittest.TestCase):
         self.assertTrue(hasattr(soup, '_repr_html_'))
         output = soup._repr_html_()
         self.assertTrue(output)
+        self.assertTrue(isinstance(output, unicode))
 
         divs = soup.findAll('div')
         for tag in divs:
             self.assertTrue(hasattr(soup, '_repr_html_'))
             output = tag._repr_html()
             self.assertTrue(output)
+            self.assertTrue(isinstance(output, unicode))
 
 
 if __name__ == '__main__':
