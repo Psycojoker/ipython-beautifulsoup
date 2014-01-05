@@ -68,6 +68,20 @@ as well as a monkey-patched BeautifulSoup and requests.
 You can now use BeautifulSoup like you would if it was imported from the
 corresponding module.
 
+There is great chances that you'll want to configure the output by using
+``configure_ipython_beautifulsoup``, for example like this (just after the
+``%load_ext``):
+
+::
+
+    configure_ipython_beautifulsoup(show_html=True, show_css=True, show_js=False)
+
+To see ``configure_ipython_beautifulsoup`` documentation just do:
+
+::
+
+    configure_ipython_beautifulsoup?
+
 This also loads a shortcut function called ``p`` (for
 **p** arse) defined as follows:
 
