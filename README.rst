@@ -98,3 +98,14 @@ IPython Notebook
    :align: center
    :alt: 2
 
+
+Contributors
+============
+
+In chronological order:
+
+- `Astalaseven <https://github.com/Astalaseven>`_ `#1 <https://github.com/Psycojoker/ipython-beautifulsoup/pull/1>`_
+- `westurner <https://github.com/westurner>`_ `#3
+  <https://github.com/Psycojoker/ipython-beautifulsoup/pull/3>`_
+
+Don't hesitate to add yourself.
