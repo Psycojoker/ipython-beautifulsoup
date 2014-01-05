@@ -133,6 +133,8 @@ def monkey_patch_beautiful_soup():
         BeautifulSoup.findAll = wrap_findall(BeautifulSoup.findAll)
         Tag.findAll = wrap_findall(Tag.findAll)
 
+    return BeautifulSoup, Tag
+
 
 def load_ipython_extension(ipython):
     print("Monkey patch BeautifulSoup with custom rendering")
