@@ -45,6 +45,7 @@ def configure_ipython_beautifulsoup(show_html=False,
     global SHOW_RENDERED_HTML
     global SHOW_RENDERED_CSS
     global SHOW_RENDERED_JS
+
     SHOW_RENDERED_HTML = show_html
     SHOW_RENDERED_CSS = show_css
     SHOW_RENDERED_JS = show_js
@@ -55,9 +56,11 @@ def cleaned_beautifulsoup_copy(soup):
     if SHOW_RENDERED_JS is not True:
         for node in copy('script'):
             node.extract()
+
     if SHOW_RENDERED_CSS is not True:
         for node in copy('style'):
             node.extract()
+
     return copy
 
 
@@ -72,6 +75,7 @@ def render(self):
             HtmlFormatter(noclasses=True),
         ))
         yield u"<hr/>"
+
     return u''.join(__render(self))
 
 
@@ -137,12 +141,16 @@ def load_ipython_extension(ipython):
 
     to_push = ["BeautifulSoup", "urlopen", "p",
                "configure_ipython_beautifulsoup"]
+
     print("See `configure_ipython_beautifulsoup?` for configuration"
           " information")
+
     print("Push 'BeautifulSoup' of '%s' into current context" %
         ("bs4" if bs4 else "BeautifulSoup"))
+
     print("Push 'urlopen' of 'urllib2' into current context")
     print("Push 'p' shortcut into current context")
+
     try:
         import requests
         requests  # pyflakes
@@ -150,4 +158,5 @@ def load_ipython_extension(ipython):
         to_push.append('requests')
     except ImportError:
         pass
+
     ipython.push(to_push)
