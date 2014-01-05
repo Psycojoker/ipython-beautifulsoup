@@ -22,6 +22,7 @@ SHOW_RENDERED_HTML = False
 SHOW_RENDERED_CSS = False
 SHOW_RENDERED_JS = False
 
+
 def configure_ipython_beautifulsoup(show_html=False,
                                     show_css=False,
                                     show_js=False):
@@ -69,10 +70,9 @@ def render(self):
             self.prettify(),
             HtmlLexer(),
             HtmlFormatter(noclasses=True),
-            ))
+        ))
         yield u"<hr/>"
     return u''.join(__render(self))
-
 
 
 class BeautifulSoupList(UserList):
@@ -94,7 +94,7 @@ class BeautifulSoupList(UserList):
                     item.prettify(),
                     HtmlLexer(),
                     HtmlFormatter(noclasses=True),
-                    )
+                )
                 yield u"</td>"
                 yield u"</tr>"
             yield "</table>"
@@ -115,6 +115,7 @@ def p(url):
     if requests is not None:
         return BeautifulSoup(requests.get(url).content)
     return BeautifulSoup(urlopen(url).read())
+
 
 def monkey_patch_beautiful_soup():
     BeautifulSoup._repr_html_ = render
@@ -138,12 +139,13 @@ def load_ipython_extension(ipython):
                "configure_ipython_beautifulsoup"]
     print("See `configure_ipython_beautifulsoup?` for configuration"
           " information")
-    print("Push 'BeautifulSoup' of '%s' into current context" % \
+    print("Push 'BeautifulSoup' of '%s' into current context" %
         ("bs4" if bs4 else "BeautifulSoup"))
     print("Push 'urlopen' of 'urllib2' into current context")
     print("Push 'p' shortcut into current context")
     try:
-        import requests; requests  # pyflakes
+        import requests
+        requests  # pyflakes
         print("Push 'requests' into current context")
         to_push.append('requests')
     except ImportError:
@@ -152,6 +154,8 @@ def load_ipython_extension(ipython):
 
 
 import unittest
+
+
 class TestIPythonBeautifulSoup(unittest.TestCase):
     @staticmethod
     def read_test_file(filename):
