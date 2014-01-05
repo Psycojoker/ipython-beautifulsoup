@@ -68,7 +68,8 @@ def render(self):
     def __render(self):
         if SHOW_RENDERED_HTML:
             yield unicode(cleaned_beautifulsoup_copy(self))
-        yield u"<hr/>"
+            yield u"<hr/>"
+
         yield unicode(highlight(
             self.prettify(),
             HtmlLexer(),
