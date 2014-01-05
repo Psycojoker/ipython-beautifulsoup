@@ -65,11 +65,11 @@ def render(self):
         if SHOW_RENDERED_HTML:
             yield unicode(cleaned_beautifulsoup_copy(self))
         yield u"<hr/>"
-        yield highlight(
+        yield unicode(highlight(
             self.prettify(),
             HtmlLexer(),
             HtmlFormatter(noclasses=True),
-            ).encode("Utf-8")
+            ))
         yield u"<hr/>"
     return u''.join(__render(self))
 
@@ -94,7 +94,7 @@ class BeautifulSoupList(UserList):
                     item.prettify(),
                     HtmlLexer(),
                     HtmlFormatter(noclasses=True),
-                    ).encode("Utf-8")
+                    )
                 yield u"</td>"
                 yield u"</tr>"
             yield "</table>"
@@ -116,9 +116,7 @@ def p(url):
         return BeautifulSoup(requests.get(url).content)
     return BeautifulSoup(urlopen(url).read())
 
-
-def load_ipython_extension(ipython):
-    print("Monkey patch BeautifulSoup with custom rendering")
+def monkey_patch_beautiful_soup():
     BeautifulSoup._repr_html_ = render
     Tag._repr_html_ = render
 
@@ -128,6 +126,13 @@ def load_ipython_extension(ipython):
     else:
         BeautifulSoup.findAll = wrap_findall(BeautifulSoup.findAll)
         Tag.findAll = wrap_findall(Tag.findAll)
+
+    return BeautifulSoup, Tag
+
+
+def load_ipython_extension(ipython):
+    print("Monkey patch BeautifulSoup with custom rendering")
+    BeautifulSoup, Tag = monkey_patch_beautiful_soup()
 
     to_push = ["BeautifulSoup", "urlopen", "p",
                "configure_ipython_beautifulsoup"]
@@ -146,7 +151,43 @@ def load_ipython_extension(ipython):
     ipython.push(to_push)
 
 
+import unittest
+class TestIPythonBeautifulSoup(unittest.TestCase):
+    @staticmethod
+    def read_test_file(filename):
+        import codecs
+        contents = None
+        with codecs.open(filename, 'r', encoding='utf-8') as f:
+            contents = f.read()
+        return contents
+
+    def test_beautifulsoup__repr_html(self):
+        contents = self.read_test_file('test.html')
+        BeautifulSoup._repr_html_ = render
+        soup = BeautifulSoup(contents)
+        output = soup._repr_html_()
+        self.assertTrue(output)
+
+    def test_monkey_patch_beautiful_soup(self):
+        BeautifulSoup_, Tag_ = monkey_patch_beautiful_soup()
+        self.assertTrue(BeautifulSoup_)
+        self.assertTrue(Tag_)
+        self.assertTrue(hasattr(BeautifulSoup_, '_repr_html_'))
+        self.assertTrue(hasattr(BeautifulSoup_, '_repr_html_'))
+
+        contents = self.read_test_file('test.html')
+        soup = BeautifulSoup_(contents)
+        self.assertTrue(hasattr(soup, '_repr_html_'))
+        output = soup._repr_html_()
+        self.assertTrue(output)
+
+        divs = soup.findAll('div')
+        for tag in divs:
+            self.assertTrue(hasattr(soup, '_repr_html_'))
+            output = tag._repr_html()
+            self.assertTrue(output)
+
+
 if __name__ == '__main__':
-    BeautifulSoup._repr_html_ = render
-    soup = BeautifulSoup(open("test.html").read())
-    soup._repr_html_()
+    import sys
+    sys.exit(unittest.main())
