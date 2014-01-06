@@ -11,7 +11,7 @@ with open(README_PATH, 'r') as f:
 
 setup(
     name='ipython-beautifulsoup',
-    version='0.1.1',
+    version='0.2',
     description='custom rendering of beautifulsoup object \
     in ipython notebook and qtconsole',
     author='Laurent Peuch',
