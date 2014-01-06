@@ -31,12 +31,12 @@ def configure_ipython_beautifulsoup(show_html=False,
 
     Args:
         show_html: whether to show actual HTML before the prettified copy
-        show_css: whether to remove <style> blocks from actual HTML
+        show_css: whether to remove <style> and <link> blocks from actual HTML
         show_js: whether to remove <script> blocks from actual HTML
 
     .. warning:: By nature of including external HTML, JS, and CSS,
        this extension is inherently unsafe. These configurable options
-       only apply to <script> and <style> tags.
+       only apply to <script> and <link> and <style> tags.
 
        The most safe option is to set all of these options to False
        (the default).
