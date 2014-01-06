@@ -93,6 +93,21 @@ This also loads a shortcut function called ``p`` (for
         return BeautifulSoup(urlopen(url).read())
 
 
+A note on security
+==================
+
+.. warning:: By nature of including external HTML, JS, and CSS,
+   this extension is inherently unsafe if you choose to render the
+   html by setting show_html to True when calling
+   **configure_ipython_beautifulsoup**.
+
+   By default, <script> and <link> and <style> tags are removed but this isn't
+   a 100% guaranty that this is secure if you choose to render the html, use at
+   your own risks.
+
+The most safe option is to set all options of configure_ipython_beautifulsoup
+to False (the default).
+
 Screenshots
 ===========
 
