@@ -76,7 +76,8 @@ There is great chances that you'll want to configure the output by using
 
     configure_ipython_beautifulsoup(show_html=True, show_css=True, show_js=False)
 
-To see ``configure_ipython_beautifulsoup`` documentation just do:
+To see ``configure_ipython_beautifulsoup`` documentation just do (in any
+interface of IPython):
 
 ::
 
