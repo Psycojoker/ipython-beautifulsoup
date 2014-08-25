@@ -1,12 +1,17 @@
 from __future__ import print_function
-try:
-    from urllib2 import urlopen
-except ImportError:
+import sys
+if sys.version_info[0] == 3:
+    PYTHON3 = True
+else:
+    PYTHON3 = False
+
+if PYTHON3:
     from urllib.request import urlopen
-try:
-    from UserList import UserList
-except ImportError:
     from collections import UserList
+else:
+    from urllib2 import urlopen
+    from UserList import UserList
+
 from pygments import highlight
 from pygments.lexers import HtmlLexer
 from pygments.formatters import HtmlFormatter
@@ -24,11 +29,6 @@ try:
 except ImportError:
     pass
 
-import sys
-if sys.version_info[0] == 3:
-    PYTHON3 = True
-else:
-    PYTHON3 = False
 
 SHOW_RENDERED_HTML = False
 SHOW_RENDERED_CSS = False
