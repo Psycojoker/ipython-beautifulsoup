@@ -3,7 +3,10 @@ try:
     from urllib2 import urlopen
 except ImportError:
     from urllib.request import urlopen
-from UserList import UserList
+try:
+    from UserList import UserList
+except ImportError:
+    from collections.UserList import UserList
 from pygments import highlight
 from pygments.lexers import HtmlLexer
 from pygments.formatters import HtmlFormatter
