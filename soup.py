@@ -80,18 +80,24 @@ def cleaned_beautifulsoup_copy(soup):
 def render(self):
     def __render(self):
         if SHOW_RENDERED_HTML:
-            yield unicode(cleaned_beautifulsoup_copy(self)) if not PYTHON3 else yield str(cleaned_beautifulsoup_copy(self))
+            if PYTHON3:
+                yield str(cleaned_beautifulsoup_copy(self))
+            else:
+                yield unicode(cleaned_beautifulsoup_copy(self))
             yield u"<hr/>"
 
-        yield unicode(highlight(
-            self.prettify(),
-            HtmlLexer(),
-            HtmlFormatter(noclasses=True),
-        )) if not PYTHON3 else yield str(highlight(
-                                            self.prettify(),
-                                            HtmlLexer(),
-                                            HtmlFormatter(noclasses=True),
-                                            ))
+        if PYTHON3:
+            yield str(highlight(
+                self.prettify(),
+                HtmlLexer(),
+                HtmlFormatter(noclasses=True),
+                ))
+        else:
+            yield unicode(highlight(
+                self.prettify(),
+                HtmlLexer(),
+                HtmlFormatter(noclasses=True),
+                ))
         yield u"<hr/>"
 
     return u''.join(__render(self))
@@ -109,7 +115,10 @@ class BeautifulSoupList(UserList):
                 yield str(num)
                 yield u"</td>"
                 yield u"<td>"
-                yield unicode(cleaned_beautifulsoup_copy(item)) if not PYTHON3 else yield str(cleaned_beautifulsoup_copy(item))
+                if PYTHON3:
+                    yield str(cleaned_beautifulsoup_copy(item))
+                else:
+                    yield unicode(cleaned_beautifulsoup_copy(item))
                 yield u"</td>"
                 yield u"<td>"
                 yield highlight(
@@ -119,7 +128,7 @@ class BeautifulSoupList(UserList):
                 )
                 yield u"</td>"
                 yield u"</tr>"
-            yield "</table>"
+            yield u"</table>"
         return u''.join(__repr_html(self))
 
     def __getslice__(self, *args, **kwargs):
