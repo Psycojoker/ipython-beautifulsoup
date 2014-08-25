@@ -1,6 +1,6 @@
 language: python
 before_install:
-  - sudo apt-get install libzmq
+  - sudo apt-get install libzmq3 libzmq3-dev
 install:
   - pip install -r requirements.txt
 python:
