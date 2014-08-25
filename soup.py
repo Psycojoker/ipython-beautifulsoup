@@ -16,12 +16,7 @@ from pygments import highlight
 from pygments.lexers import HtmlLexer
 from pygments.formatters import HtmlFormatter
 
-bs4 = None
-try:
-    from bs4 import BeautifulSoup, Tag
-    bs4 = True
-except ImportError:
-    from BeautifulSoup import BeautifulSoup, Tag
+from bs4 import BeautifulSoup, Tag
 
 requests = None
 try:
@@ -65,7 +60,10 @@ def configure_ipython_beautifulsoup(show_html=False,
 
 
 def cleaned_beautifulsoup_copy(soup):
-    copy = BeautifulSoup(unicode(soup))
+    if PYTHON3:
+        copy = BeautifulSoup(str(soup))
+    else:
+        copy = BeautifulSoup(unicode(soup))
     if SHOW_RENDERED_JS is not True:
         for node in copy('script'):
             node.extract()
@@ -151,13 +149,8 @@ def p(url):
 def monkey_patch_beautiful_soup():
     BeautifulSoup._repr_html_ = render
     Tag._repr_html_ = render
-
-    if bs4:
-        BeautifulSoup.find_all = wrap_findall(BeautifulSoup.find_all)
-        Tag.find_all = wrap_findall(Tag.find_all)
-    else:
-        BeautifulSoup.findAll = wrap_findall(BeautifulSoup.findAll)
-        Tag.findAll = wrap_findall(Tag.findAll)
+    BeautifulSoup.find_all = wrap_findall(BeautifulSoup.find_all)
+    Tag.find_all = wrap_findall(Tag.find_all)
 
     return BeautifulSoup, Tag
 
@@ -172,10 +165,9 @@ def load_ipython_extension(ipython):
     print("See `configure_ipython_beautifulsoup?` for configuration"
           " information")
 
-    print("Push 'BeautifulSoup' of '%s' into current context" %
-        ("bs4" if bs4 else "BeautifulSoup"))
+    print("Push 'BeautifulSoup' from 'bs4' into current context")
 
-    print("Push 'urlopen' of '%s' into current context" %
+    print("Push 'urlopen' from '%s' into current context" %
         ("urllib.request" if PYTHON3 else "urllib2"))
     print("Push 'p' shortcut into current context")
 
