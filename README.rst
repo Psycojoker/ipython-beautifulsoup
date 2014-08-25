@@ -57,7 +57,7 @@ Usage
 
 In IPython notebook or qtconsole, run:
 
-.. code:: ipython
+.. code:: python
 
     %load_ext soup
 
