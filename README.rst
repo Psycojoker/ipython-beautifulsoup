@@ -17,7 +17,7 @@ Simply run:
 
 ::
 
-    pip install "ipython-beautifulSoup[bs4]"
+    pip install "ipython-beautifulsoup[bs4]"
 
 
 Installing IPython Notebook
@@ -62,7 +62,7 @@ In IPython notebook or qtconsole, run:
     %load_ext soup
 
 This will push a series of callables into your current context, as well
-as a monkey-patched BeautifulSoup and requests.
+as a monkey-patched ``BeautifulSoup`` and ``requests``.
 
 You can now use BeautifulSoup like you would if it was imported from the
 corresponding module.
