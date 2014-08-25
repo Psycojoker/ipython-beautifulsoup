@@ -57,6 +57,7 @@ def configure_ipython_beautifulsoup(show_html=False,
     global SHOW_RENDERED_HTML
     global SHOW_RENDERED_CSS
     global SHOW_RENDERED_JS
+    global PYTHON3
 
     SHOW_RENDERED_HTML = show_html
     SHOW_RENDERED_CSS = show_css
@@ -79,14 +80,18 @@ def cleaned_beautifulsoup_copy(soup):
 def render(self):
     def __render(self):
         if SHOW_RENDERED_HTML:
-            yield unicode(cleaned_beautifulsoup_copy(self))
+            yield unicode(cleaned_beautifulsoup_copy(self)) if not PYTHON3 else yield str(cleaned_beautifulsoup_copy(self))
             yield u"<hr/>"
 
         yield unicode(highlight(
             self.prettify(),
             HtmlLexer(),
             HtmlFormatter(noclasses=True),
-        ))
+        )) if not PYTHON3 else yield str(highlight(
+                                            self.prettify(),
+                                            HtmlLexer(),
+                                            HtmlFormatter(noclasses=True),
+                                            ))
         yield u"<hr/>"
 
     return u''.join(__render(self))
@@ -104,7 +109,7 @@ class BeautifulSoupList(UserList):
                 yield str(num)
                 yield u"</td>"
                 yield u"<td>"
-                yield unicode(cleaned_beautifulsoup_copy(item))
+                yield unicode(cleaned_beautifulsoup_copy(item)) if not PYTHON3 else yield str(cleaned_beautifulsoup_copy(item))
                 yield u"</td>"
                 yield u"<td>"
                 yield highlight(
