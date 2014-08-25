@@ -137,5 +137,7 @@ In chronological order:
 - `Astalaseven <https://github.com/Astalaseven>`_ - pull request: `#1 <https://github.com/Psycojoker/ipython-beautifulsoup/pull/1>`_
 - `westurner <https://github.com/westurner>`_ - pull request: `#3
   <https://github.com/Psycojoker/ipython-beautifulsoup/pull/3>`_
+- `MattDMo <https://github.com/MattDMo>`_ - pull request: `#5 <https://github.com/Psycojoker/ipython-beautifulsoup/pull/5>`_
+
 
 Don't hesitate to add yourself.
