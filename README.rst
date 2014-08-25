@@ -1,6 +1,8 @@
 IPython-BeautifulSoup
 =====================
-
+.. image:: https://travis-ci.org/Psycojoker/ipython-beautifulsoup.svg?branch=master
+    :target: https://travis-ci.org/Psycojoker/ipython-beautifulsoup
+    
 IPython-BeautifulSoup is an IPython extension for displaying
 BeautifulSoup HTML/XML objects as prettified and syntax highlighted HTML
 blocks in IPython notebook and qtconsole.
