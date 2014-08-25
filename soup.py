@@ -1,5 +1,8 @@
 from __future__ import print_function
-from urllib2 import urlopen
+try:
+    from urllib2 import urlopen
+except ImportError:
+    from urllib.request import urlopen
 from UserList import UserList
 from pygments import highlight
 from pygments.lexers import HtmlLexer
