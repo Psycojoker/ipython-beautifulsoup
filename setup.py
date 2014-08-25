@@ -4,7 +4,7 @@
 from setuptools import setup
 
 import os.path
-README_PATH = os.path.join(os.path.dirname(__file__), 'README_NEW.rst')
+README_PATH = os.path.join(os.path.dirname(__file__), 'README.rst')
 README_TEXT = None
 with open(README_PATH, 'r') as f:
     README_TEXT = f.read()
