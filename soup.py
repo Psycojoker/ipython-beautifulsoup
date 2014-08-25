@@ -24,6 +24,12 @@ try:
 except ImportError:
     pass
 
+import sys
+if sys.version_info[0] == 3:
+    PYTHON3 = True
+else:
+    PYTHON3 = False
+
 SHOW_RENDERED_HTML = False
 SHOW_RENDERED_CSS = False
 SHOW_RENDERED_JS = False
@@ -155,7 +161,8 @@ def load_ipython_extension(ipython):
     print("Push 'BeautifulSoup' of '%s' into current context" %
         ("bs4" if bs4 else "BeautifulSoup"))
 
-    print("Push 'urlopen' of 'urllib2' into current context")
+    print("Push 'urlopen' of '%s' into current context" %
+        ("urllib.request" if PYTHON3 else "urllib2"))
     print("Push 'p' shortcut into current context")
 
     try:
