@@ -6,7 +6,7 @@ BeautifulSoup HTML/XML objects as prettified and syntax highlighted HTML
 blocks in IPython notebook and qtconsole.
 
 Syntax highlighting is accomplished with
-```Pygments`` <http://pygments.org/>`__.
+`Pygments <http://pygments.org/>`__.
 
 |teaser|
 
@@ -121,7 +121,7 @@ IPython Notebook
 
 ``.find_all``:
 
-|.find\_all|
+|.find_all|
 
 Contributors
 ============
@@ -139,4 +139,4 @@ Don't hesitate to add yourself.
 
 .. |teaser| image:: teaser.png
 .. |.find| image:: 1.png
-.. |.find\_all| image:: 2.png
+.. |.find_all| image:: 2.png
