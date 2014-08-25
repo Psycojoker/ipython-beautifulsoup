@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding:Utf-8 -*-
 
 from setuptools import setup
 
@@ -10,14 +11,14 @@ with open(README_PATH, 'r') as f:
 
 setup(
     name='ipython-beautifulsoup',
-    version='0.2.1',
+    version='0.3',
     description='custom rendering of beautifulsoup object \
     in ipython notebook and qtconsole',
-    author='Matt Morrison',
+    author='Laurent Peuch',
     long_description=README_TEXT,
-    author_email='mattdmo@pigimal.com',
-    url='https://github.com/MattDMo/ipython-beautifulsoup',
-    install_requires=['pygments'],
+    author_email='cortex@worlddomination.be',
+    url='https://github.com/Psycojoker/ipython-beautifulsoup',
+    install_requires=['pygments', 'ipython'],
     extras_require={
         "notebook": ["ipython[notebook]", "pyzmq", "jinja2", "tornado"],
         "qtconsole": ["ipython[qtconsole]"],
