@@ -6,7 +6,7 @@ except ImportError:
 try:
     from UserList import UserList
 except ImportError:
-    from collections.UserList import UserList
+    from collections import UserList
 from pygments import highlight
 from pygments.lexers import HtmlLexer
 from pygments.formatters import HtmlFormatter
