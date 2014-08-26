@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 
+import os.path
 from setuptools import setup
 
-import os.path
 README_PATH = os.path.join(os.path.dirname(__file__), 'README.rst')
 README_TEXT = None
 with open(README_PATH, 'r') as f:
