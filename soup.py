@@ -54,7 +54,6 @@ def configure_ipython_beautifulsoup(show_html=False,
     global SHOW_RENDERED_HTML
     global SHOW_RENDERED_CSS
     global SHOW_RENDERED_JS
-    global PYTHON3
 
     SHOW_RENDERED_HTML = show_html
     SHOW_RENDERED_CSS = show_css
