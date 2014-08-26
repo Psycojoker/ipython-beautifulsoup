@@ -9,12 +9,17 @@ README_TEXT = None
 with open(README_PATH, 'r') as f:
     README_TEXT = f.read()
 
+CHANGELOG_PATH = os.path.join(os.path.dirname(__file__), 'CHANGELOG.rst')
+CHANGELOG_TEXT = None
+with open(CHANGELOG_PATH, 'r') as f:
+    CHANGELOG_TEXT = f.read()
+
 setup(name='ipython-beautifulsoup',
       version='0.3',
       description='Custom rendering of beautifulsoup objects \
       in IPython notebook and qtconsole',
       author='Laurent Peuch',
-      long_description=README_TEXT,
+      long_description=README_TEXT + "\n\n" + CHANGELOG_TEXT,
       author_email='cortex@worlddomination.be',
       url='https://github.com/Psycojoker/ipython-beautifulsoup',
       install_requires=['pygments', 'ipython', 'beautifulsoup4'],
