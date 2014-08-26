@@ -8,9 +8,11 @@ else:
 if PYTHON3:
     from urllib.request import urlopen
     from collections import UserList
+    string_representation = str
 else:
     from urllib2 import urlopen
     from UserList import UserList
+    string_representation = unicode
 
 from pygments import highlight
 from pygments.lexers import HtmlLexer
@@ -60,10 +62,7 @@ def configure_ipython_beautifulsoup(show_html=False,
 
 
 def cleaned_beautifulsoup_copy(soup):
-    if PYTHON3:
-        copy = BeautifulSoup(str(soup))
-    else:
-        copy = BeautifulSoup(unicode(soup))
+    copy = BeautifulSoup(string_representation(soup))
     if SHOW_RENDERED_JS is not True:
         for node in copy('script'):
             node.extract()
@@ -78,24 +77,14 @@ def cleaned_beautifulsoup_copy(soup):
 def render(self):
     def __render(self):
         if SHOW_RENDERED_HTML:
-            if PYTHON3:
-                yield str(cleaned_beautifulsoup_copy(self))
-            else:
-                yield unicode(cleaned_beautifulsoup_copy(self))
+            yield string_representation(cleaned_beautifulsoup_copy(self))
             yield u"<hr/>"
 
-        if PYTHON3:
-            yield str(highlight(
-                self.prettify(),
-                HtmlLexer(),
-                HtmlFormatter(noclasses=True),
-                ))
-        else:
-            yield unicode(highlight(
-                self.prettify(),
-                HtmlLexer(),
-                HtmlFormatter(noclasses=True),
-                ))
+        yield string_representation(highlight(
+            self.prettify(),
+            HtmlLexer(),
+            HtmlFormatter(noclasses=True),
+            ))
         yield u"<hr/>"
 
     return u''.join(__render(self))
@@ -113,10 +102,7 @@ class BeautifulSoupList(UserList):
                 yield str(num)
                 yield u"</td>"
                 yield u"<td>"
-                if PYTHON3:
-                    yield str(cleaned_beautifulsoup_copy(item))
-                else:
-                    yield unicode(cleaned_beautifulsoup_copy(item))
+                yield string_representation(cleaned_beautifulsoup_copy(item))
                 yield u"</td>"
                 yield u"<td>"
                 yield highlight(
