@@ -30,11 +30,13 @@ except ImportError:
 SHOW_RENDERED_HTML = False
 SHOW_RENDERED_CSS = False
 SHOW_RENDERED_JS = False
+BS_PARSER = 'html.parser'
 
 
 def configure_ipython_beautifulsoup(show_html=False,
                                     show_css=False,
-                                    show_js=False):
+                                    show_js=False,
+                                    parser=None):
     """
     Configure rendering settings for ipython-beautifulsoup extension
 
@@ -42,6 +44,7 @@ def configure_ipython_beautifulsoup(show_html=False,
         show_html: whether to show actual HTML before the prettified copy
         show_css: whether to remove <style> and <link> blocks from actual HTML
         show_js: whether to remove <script> blocks from actual HTML
+        parser: what parser BeautifulSoup should use by default
 
     .. warning:: By nature of including external HTML, JS, and CSS,
        this extension is inherently unsafe. These configurable options
@@ -54,14 +57,22 @@ def configure_ipython_beautifulsoup(show_html=False,
     global SHOW_RENDERED_HTML
     global SHOW_RENDERED_CSS
     global SHOW_RENDERED_JS
+    global BS_PARSER
 
     SHOW_RENDERED_HTML = show_html
     SHOW_RENDERED_CSS = show_css
     SHOW_RENDERED_JS = show_js
 
+    if parser:
+        BS_PARSER = parser
 
-def cleaned_beautifulsoup_copy(soup):
-    copy = BeautifulSoup(string_representation(soup))
+
+def cleaned_beautifulsoup_copy(soup, parser=None):
+    # Allow for overriding the default parser for a particular request.
+    if not parser:
+        parser = BS_PARSER
+
+    copy = BeautifulSoup(string_representation(soup), parser)
     if SHOW_RENDERED_JS is not True:
         for node in copy('script'):
             node.extract()
@@ -73,10 +84,11 @@ def cleaned_beautifulsoup_copy(soup):
     return copy
 
 
-def render(self):
-    def __render(self):
+def render(self, parser=None):
+    def __render(self, parser=None):
         if SHOW_RENDERED_HTML:
-            yield string_representation(cleaned_beautifulsoup_copy(self))
+            yield string_representation(cleaned_beautifulsoup_copy(self,
+                                                                   parser))
             yield u"<hr/>"
 
         yield string_representation(highlight(
@@ -86,12 +98,12 @@ def render(self):
             ))
         yield u"<hr/>"
 
-    return u''.join(__render(self))
+    return u''.join(__render(self, parser))
 
 
 class BeautifulSoupList(UserList):
-    def _repr_html_(self):
-        def __repr_html(self):
+    def _repr_html_(self, parser=None):
+        def __repr_html(self, parser=None):
             # string addition is slow (and makes copies)
             yield u"<table>"
             yield u"<tr><th>Index</th><th>Render</th><th>source</th></tr>"
@@ -101,7 +113,8 @@ class BeautifulSoupList(UserList):
                 yield str(num)
                 yield u"</td>"
                 yield u"<td>"
-                yield string_representation(cleaned_beautifulsoup_copy(item))
+                yield string_representation(cleaned_beautifulsoup_copy(item,
+                                                                       parser))
                 yield u"</td>"
                 yield u"<td>"
                 yield highlight(
@@ -112,7 +125,7 @@ class BeautifulSoupList(UserList):
                 yield u"</td>"
                 yield u"</tr>"
             yield u"</table>"
-        return u''.join(__repr_html(self))
+        return u''.join(__repr_html(self, parser))
 
     def __getslice__(self, *args, **kwargs):
         return BeautifulSoupList(
@@ -125,10 +138,14 @@ def wrap_findall(function):
     return findall_wrapper
 
 
-def p(url):
+def p(url, parser=None):
+    # Allow for overriding the default parser for a particular request.
+    if not parser:
+        parser = BS_PARSER
+
     if requests is not None:
-        return BeautifulSoup(requests.get(url).content)
-    return BeautifulSoup(urlopen(url).read())
+        return BeautifulSoup(requests.get(url).content, parser)
+    return BeautifulSoup(urlopen(url).read(), parser)
 
 
 def monkey_patch_beautiful_soup():
